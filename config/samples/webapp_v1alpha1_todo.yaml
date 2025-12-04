@@ -1,0 +1,9 @@
+apiVersion: webapp.localhost/v1alpha1
+kind: Todo
+metadata:
+  labels:
+    app.kubernetes.io/name: sdk-directory
+    app.kubernetes.io/managed-by: kustomize
+  name: todo-sample
+spec:
+  # TODO(user): Add fields here
