@@ -1,8 +1,8 @@
-apiVersion: webapp.localhost/v1alpha1
+apiVersion: webapp.example.com/v1alpha1
 kind: Todo
 metadata:
   labels:
-    app.kubernetes.io/name: sdk-directory
+    app.kubernetes.io/name: kind
     app.kubernetes.io/managed-by: kustomize
   name: todo-sample
 spec:

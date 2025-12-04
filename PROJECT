@@ -2,22 +2,22 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: localhost
+domain: example.com
 layout:
 - go.kubebuilder.io/v4
 plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
-projectName: sdk-directory
-repo: github.com/scelios/kind
+projectName: kind
+repo: github.com/example/todo-operator
 resources:
 - api:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: localhost
+  domain: example.com
   group: webapp
   kind: Todo
-  path: github.com/scelios/kind/api/v1alpha1
+  path: github.com/example/todo-operator/api/v1alpha1
   version: v1alpha1
 version: "3"

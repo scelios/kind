@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: todoes.webapp.localhost
+  name: todoes.webapp.example.com
 spec:
-  group: webapp.localhost
+  group: webapp.example.com
   names:
     kind: Todo
     listKind: TodoList

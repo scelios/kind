@@ -1,0 +1,7 @@
+apiVersion: webapp.example.com/v1alpha1
+kind: Todo
+metadata:
+  name: mytodo
+spec:
+  foo: "buy milk and write code"
+

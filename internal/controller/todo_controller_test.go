@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	webappv1alpha1 "github.com/scelios/kind/api/v1alpha1"
+	webappv1alpha1 "github.com/example/todo-operator/api/v1alpha1"
 )
 
 var _ = Describe("Todo Controller", func() {

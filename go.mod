@@ -1,4 +1,4 @@
-module github.com/scelios/kind
+module github.com/example/todo-operator
 
 go 1.24.0
 
