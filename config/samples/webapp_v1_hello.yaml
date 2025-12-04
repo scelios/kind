@@ -1,0 +1,6 @@
+apiVersion: webapp.example.com/v1
+kind: Hello
+metadata:
+  name: example-hello
+spec:
+  message: "Hello from operator"
