@@ -1,0 +1,9 @@
+apiVersion: helloworld.helloworld.com/v1
+kind: HelloWorld
+metadata:
+  labels:
+    app.kubernetes.io/name: helloworld-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: helloworld-sample
+spec:
+  message: "Hello from Kind Operator!"
