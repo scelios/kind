@@ -1,9 +1,0 @@
-apiVersion: webapp.example.com/v1alpha1
-kind: Todo
-metadata:
-  labels:
-    app.kubernetes.io/name: kind
-    app.kubernetes.io/managed-by: kustomize
-  name: todo-sample
-spec:
-  # TODO(user): Add fields here
