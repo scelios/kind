@@ -1,0 +1,47 @@
+# Minimal CRD for HelloWorld
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: helloworlds.apps.example.com
+spec:
+  group: apps.example.com
+  scope: Namespaced
+  names:
+    plural: helloworlds
+    singular: helloworld
+    kind: HelloWorld
+    shortNames:
+      - hw
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: "Message the operator will use (e.g. printed/logged by a controller)"
+                replicas:
+                  type: integer
+                  description: "Optional replica count for any managed workload"
+              required: []
+            status:
+              type: object
+      subresources:
+        status: {}
+
+---
+# HelloWorld CustomResource instance (operator should reconcile this)
+apiVersion: apps.example.com/v1alpha1
+kind: HelloWorld
+metadata:
+  name: example-helloworld
+  namespace: default
+spec:
+  message: "Hello from Operator SDK!"
+  replicas: 2

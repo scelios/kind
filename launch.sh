@@ -1,6 +1,11 @@
 #!/bin/bash
 
+DOMAIN ="example.com"
+REPO ="github.com/example/memcached-operator"
+CLUSTER_NAME="my-cluster"
+
 # This script launches the application with the necessary environment setup.
+
 # install kind
 if [ -f /usr/local/bin/kind ]; then
     echo "kind already installed"
@@ -11,6 +16,7 @@ else
         exit 1
     fi
 fi
+
 # kubectl
 if [ -f /usr/local/bin/kubectl ]; then
     echo "kubectl already installed"
@@ -34,18 +40,19 @@ else
 fi
 
 # create kind cluster
-kind create cluster --name my-cluster
+kind create cluster --name ${CLUSTER_NAME}
 if [ $? -ne 0 ]; then
     echo "Failed to create kind cluster"
     exit 1
 fi
-echo "Kind cluster 'my-cluster' created successfully"
+echo "Kind cluster '${CLUSTER_NAME}' created successfully"
+
 # Set KUBECONFIG environment variable
-export KUBECONFIG="$(kind get kubeconfig-path --name="my-cluster")"
+export KUBECONFIG="$(kind get kubeconfig-path --name="${CLUSTER_NAME}")"
 echo "KUBECONFIG set to $KUBECONFIG"
 
 # initialize operator-sdk
-operator-sdk init --domain=localhost 
+operator-sdk init --domain=${DOMAIN} --repo=${REPO}
 if [ $? -ne 0 ]; then
     echo "Failed to initialize operator-sdk"
     exit 1
@@ -69,6 +76,48 @@ fi
 echo "OLM installed successfully"
 
 # Launch the application (example command)
-make bundle IMG="example.com/memcached-operator:v0.0.1"
-make docker-build docker-push IMG="example.com/memcached-operator:v0.0.1"
+make bundle IMG="${DOMAIN}/memcached-operator:v0.0.1"
+make docker-build docker-push IMG="${DOMAIN}/memcached-operator:v0.0.1"
+
+# Run the operator from the bundle
+operator-sdk run bundle ${DOMAIN}/memcached-operator-bundle:v0.0.1
+if [ $? -ne 0 ]; then
+    echo "Failed to run the operator"
+    exit 1
+fi
+echo "Operator is running successfully"
+
+mv helloWorld.yaml config/samples/
+
+kubectl apply -f config/samples/helloWorld.yaml
+if [ $? -ne 0 ]; then
+    echo "Failed to apply helloWorld.yaml"
+    exit 1
+fi
+echo "helloWorld.yaml applied successfully"
+# Note: Replace the example commands and paths with actual application-specific commands as needed.
+
+make deploy IMG="${DOMAIN}/memcached-operator:v0.0.1"
+if [ $? -ne 0 ]; then
+    echo "Failed to deploy the operator"
+    exit 1
+fi
+echo "Operator deployed successfully"
+
+make install
+if [ $? -ne 0 ]; then
+    echo "Failed to install the operator"
+    exit 1
+fi
+echo "Operator installed successfully"
+
+make run IMG="${DOMAIN}/memcached-operator:v0.0.1"
+if [ $? -ne 0 ]; then
+    echo "Failed to run the operator"
+    exit 1
+fi
+echo "Operator is running successfully"
+
+echo "Application launched successfully"
+# Note: Replace the example commands and paths with actual application-specific commands as needed.
 
