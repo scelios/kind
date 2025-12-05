@@ -30,8 +30,8 @@ rm -f /tmp/kind-* 2>/dev/null || true
 rm -f /tmp/kubeconfig-* 2>/dev/null || true
 
 # Clean up src directory (optional - uncomment if you want to rebuild from scratch)
-# echo "Cleaning up src directory..."
-# rm -rf src/
+echo "Cleaning up src directory..."
+rm -rf src/
 
 # Clean up temporary files
 echo "Cleaning up temporary files..."
@@ -40,7 +40,7 @@ rm -f /tmp/port-forward.log
 
 # Clean up Docker images (optional - uncomment to remove Docker images)
 echo "Removing Docker images related to this operator..."
-docker rmi znichola/expert-system:latest 2>/dev/null || true
+docker rmi scelios/expert-system:latest 2>/dev/null || true
 docker rmi -f $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -E "(memcached|helloworld|operator)" | head -20) 2>/dev/null || true
 
 echo ""
@@ -52,6 +52,5 @@ echo "What was cleaned:"
 echo "  ✓ Kind cluster deleted"
 echo "  ✓ Operator and port-forward processes stopped"
 echo "  ✓ Temporary files removed"
-echo ""
-echo "Optional: To also remove Docker images, uncomment the Docker section in this script"
+echo "  ✓ src directory cleaned"
 echo ""
