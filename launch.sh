@@ -54,7 +54,7 @@ fi
 # Create API and Controller
 if [ ! -d "api/v1alpha1" ]; then
     echo "Creating API and Controller..."
-    operator-sdk create api --group cache --version v1alpha1 --kind Memcached --resource --controller
+    operator-sdk create api --group cache --version v1alpha1 --kind HelloWorld --resource --controller
     echo -e "${GREEN}✓ API and Controller created${NC}"
 fi
 
